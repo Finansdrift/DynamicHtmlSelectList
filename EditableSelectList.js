@@ -11,29 +11,29 @@ class selel extends HTMLSelectElement {
 static formAssociated = true;
     constructor() {
     super();
-    let codeCustom; 
-    let codeCustomCreated = false; 
+    let OptionInputBox; 
+    let OptionInputBoxCreated = false; 
     this.addEventListener('keydown', function(ev1) {
     if (ev1.key === 'ArrowUp' || ev1.key === 'ArrowDown' || ev1.key === 'Alt' || ev1.key === 'Tab' || ev1.key === 'Escape') {
         ev1.stopPropagation(); 
         }
         else { 
-            if (!codeCustomCreated) {
+            if (!OptionInputBoxCreated) {
                 this.style.display = 'none';
-                codeCustom = document.createElement('input');
-                codeCustom.id = 'CodeCustom';
-                codeCustom.name = 'CodeCustom';
-                codeCustom.style.border = 'none';
-                codeCustom.style.backgroundColor = '#eeeeee';
-                codeCustom.style.fontSize = '1rem';
-                codeCustom.style.display = 'block';
-                codeCustom.style.position = 'relative';
-                codeCustom.value = '';
-                codeCustom.placeholder = 'Enter new option or escape';
-                this.insertAdjacentElement('afterend', codeCustom);
-                codeCustom.focus();
-                codeCustomCreated = true; 
-                codeCustom.addEventListener("keydown", (ev2) => handleKeyDown(ev1, ev2,this));
+                OptionInputBox = document.createElement('input');
+                OptionInputBox.id = 'OptionInputBox';
+                OptionInputBox.name = 'OptionInputBox';
+                OptionInputBox.style.border = 'none';
+                OptionInputBox.style.backgroundColor = '#eeeeee';
+                OptionInputBox.style.fontSize = '1rem';
+                OptionInputBox.style.display = 'block';
+                OptionInputBox.style.position = 'relative';
+                OptionInputBox.value = '';
+                OptionInputBox.placeholder = 'Enter new option or escape';
+                this.insertAdjacentElement('afterend', OptionInputBox);
+                OptionInputBox.focus();
+                OptionInputBoxCreated = true; 
+                OptionInputBox.addEventListener("keydown", (ev2) => handleKeyDown(ev1, ev2,this));
                 } 
         } 
     });  
@@ -47,20 +47,20 @@ static formAssociated = true;
 
     const handleKeyDown = function(ev1, ev2,select) {
         if (ev2.key === 'Escape') {
-            codeCustom.style.display = 'none';
+            OptionInputBox.style.display = 'none';
             select.style.display = 'block';
-            codeCustomCreated = false; 
+            OptionInputBoxCreated = false; 
         } else if (ev2.key === 'Enter') {
-            const lokalverdi = codeCustom.value;
+            const lokalverdi = OptionInputBox.value;
             select.style.display = 'block';
             ev1.stopImmediatePropagation(); 
             ev2.stopImmediatePropagation(); 
             if (!checkIfOptionExist(select, lokalverdi)) {
                 addNewOption(select, lokalverdi);
             }
-            codeCustom.removeEventListener("keydown", handleKeyDown);
-            codeCustom.remove();
-            codeCustomCreated = false;
+            OptionInputBox.removeEventListener("keydown", handleKeyDown);
+            OptionInputBox.remove();
+            OptionInputBoxCreated = false;
             }
     };
 
